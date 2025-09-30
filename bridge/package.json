@@ -10,9 +10,11 @@
   "dependencies": {
     "canvas": "^2.11.2",
     "express": "^4.18.2",
+    "gl": "^8.1.6",
     "minecraft-protocol": "^1.54.0",
     "mineflayer": "^4.33.0",
-    "prismarine-viewer": "^1.33.0"
+    "prismarine-viewer": "^1.33.0",
+    "puppeteer": "^24.22.3"
   },
   "engines": {
     "node": ">=18.0.0"

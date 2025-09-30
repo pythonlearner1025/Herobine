@@ -1,6 +1,10 @@
 models/
 JarvisVLA/
 MineStudio/
-bridge/__pycache__/
+__pycache__/
+*/__pycache__/
+**/__pycache__/
+*/logs/
+**/logs/
 bridge/mineflayer/
 bridge/node_modules/

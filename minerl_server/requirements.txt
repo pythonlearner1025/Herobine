@@ -1,0 +1,15 @@
+# MineRL Server Requirements
+# Install with: pip install -r requirements.txt
+
+# Core dependencies (already installed via MineStudio)
+minestudio>=1.1.5
+gymnasium>=0.29.0
+numpy>=1.24.0
+pillow>=10.0.0
+
+# For visualization (optional)
+matplotlib>=3.7.0
+
+# JarvisVLA dependencies (from parent directory)
+# See /workspace/Herobine/JarvisVLA/requirements.txt
+

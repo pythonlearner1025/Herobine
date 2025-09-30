@@ -24,7 +24,7 @@ class MineflayerEnv:
         server_host='localhost',
         server_port=25565,
         bot_username='AIBot',
-        bridge_port=3333,
+        bridge_port=1111,
         obs_size=(360, 640),  # Height, Width - matching MineStudio
         auto_start_bridge=True
     ):
@@ -52,12 +52,14 @@ class MineflayerEnv:
         
         env = os.environ.copy()
         env['MINEFLAYER_PORT'] = str(self.bridge_port)
+        env['DISPLAY'] = ':99'  # Use Xvfb virtual display for WebGL
         
+        # Start bridge with visible output for debugging
         self.bridge_process = subprocess.Popen(
             ['node', str(bridge_path)],
             env=env,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
+            stdout=None,  # Show stdout in console
+            stderr=None   # Show stderr in console
         )
         
         # Wait for server to start
@@ -65,7 +67,7 @@ class MineflayerEnv:
         print(f"[MineflayerEnv] Bridge server started on port {self.bridge_port}")
     
     def _init_bot(self):
-        """Initialize the bot connection"""
+        """Initialize the bot connection and wait for it to spawn"""
         try:
             response = requests.post(
                 f"{self.bridge_url}/init",
@@ -78,6 +80,29 @@ class MineflayerEnv:
             )
             if response.status_code == 200:
                 print(f"[MineflayerEnv] Bot '{self.bot_username}' connecting to {self.server_host}:{self.server_port}")
+                
+                # Wait for bot to actually spawn and viewer to initialize
+                print(f"[MineflayerEnv] Waiting for bot to spawn and server-side viewer to initialize...")
+                print(f"[MineflayerEnv] This should take ~10-12 seconds (includes texture loading)...")
+                time.sleep(12)  # Wait for: spawn (2s) + chunks (3s) + viewer init (2s) + textures (5s)
+                
+                # Verify bot is connected
+                status = requests.get(f"{self.bridge_url}/status", timeout=2).json()
+                if status.get('connected'):
+                    print(f"[MineflayerEnv] ✓ Bot connected and ready")
+                else:
+                    print(f"[MineflayerEnv] ⚠ Bot not connected yet")
+                
+                # Check viewer status
+                try:
+                    viewer_status = requests.get(f"{self.bridge_url}/viewer/status", timeout=2).json()
+                    if viewer_status.get('viewerReady'):
+                        print(f"[MineflayerEnv] ✓ Viewer ready - screenshots will work")
+                    else:
+                        print(f"[MineflayerEnv] ⚠ Viewer not ready yet - screenshots may be black")
+                        print(f"[MineflayerEnv]   Viewer status: {viewer_status}")
+                except Exception as e:
+                    print(f"[MineflayerEnv] ⚠ Could not check viewer status: {e}")
             else:
                 print(f"[MineflayerEnv] Warning: Init returned {response.status_code}")
         except Exception as e:
