@@ -1,110 +1,122 @@
 #!/bin/bash
-# Complete JarvisVLA Installation Script (No Conda Required!)
-# This script installs OpenJDK 8, JarvisVLA, minestudio, vllm, and all dependencies
-# for both Xvfb (headless) and VirtualGL rendering
+# JarvisVLA Installation Script - Optimized for vLLM Serving
+# This script installs all dependencies needed to serve JarvisVLA via vLLM
+# with proper dependency resolution to avoid conflicts
 
 set -e  # Exit on any error
 
-echo "🚀 Starting JarvisVLA installation..."
+echo "🚀 Starting JarvisVLA installation (optimized for vLLM serving)..."
 
-# Install OpenJDK 8 via apt (no conda needed!)
-echo "📦 Installing OpenJDK 8..."
-apt update
-apt install openjdk-8-jdk -y
+# Install system dependencies
+echo "📦 Installing system dependencies..."
+apt-get update
+apt-get install -y openjdk-8-jdk xvfb git curl wget
 
-# Install Xvfb for headless display support
-echo "📦 Installing Xvfb for headless display..."
-apt install -y xvfb
-
-# Set environment variables
-echo "🔧 Setting up environment variables..."
+# Set up Java environment
+echo "🔧 Setting up Java environment..."
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export PATH=$JAVA_HOME/bin:$PATH
 
-# Make JAVA_HOME persistent
-echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> ~/.bashrc
-echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+# Make Java environment persistent
+if ! grep -q "JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" ~/.bashrc; then
+    echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' >> ~/.bashrc
+    echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+fi
 
-# Clone and install JarvisVLA
-echo "📥 Cloning and installing JarvisVLA..."
-git clone https://github.com/CraftJarvis/JarvisVLA.git
+# Step 1: Install vLLM first (critical for serving) - let pip resolve all dependencies
+echo ""
+echo "📦 Step 1/5: Installing vLLM and its dependencies..."
+echo "   (This may take several minutes as it installs PyTorch and other large packages)"
+pip install vllm==0.10.2
+
+# Step 2: Install core ML libraries needed for inference
+echo ""
+echo "📦 Step 2/5: Installing core inference dependencies..."
+# Use compatible versions that work with vllm's PyTorch
+pip install transformers>=4.50.0 accelerate>=1.2.0 peft datasets trl
+pip install qwen-vl-utils sentencepiece pillow numpy
+
+# Step 3: Clone JarvisVLA and install it WITHOUT strict dependencies
+echo ""
+echo "📦 Step 3/5: Installing JarvisVLA..."
+if [ ! -d "JarvisVLA" ]; then
+    git clone https://github.com/CraftJarvis/JarvisVLA.git
+fi
 cd JarvisVLA
+
+# Install JarvisVLA without enforcing its outdated requirements
+# This allows the already-installed compatible versions to be used
 pip install --no-deps -e .
 
-# Install compatible core dependencies
-echo "📦 Installing core ML dependencies..."
-pip install accelerate==1.4.0 peft==0.14.0 trl==0.18.2
-pip install av==14.1.0 rich wandb openai opencv-python opencv-python-headless
+# Step 4: Install minestudio for evaluation/simulation (optional for serving)
+echo ""
+echo "📦 Step 4/5: Installing minestudio (for evaluation)..."
+# Install minestudio's dependencies carefully to avoid conflicts
+pip install minestudio || {
+    echo "⚠️  Warning: minestudio installation had issues, attempting manual install..."
+    pip install --no-deps minestudio
+    # Install only the critical minestudio dependencies
+    pip install hydra-core omegaconf scipy lxml gymnasium
+    pip install coloredlogs diskcache einops absl-py dm-tree wrapt
+}
 
-# Install minestudio dependencies
-echo "📦 Installing minestudio and dependencies..."
-pip install minestudio --no-deps
-pip install hydra-core omegaconf scipy lxml gym gymnasium
-pip install absl-py dm-tree einops coloredlogs diskcache
-pip install gym3 minecraft_data==3.20.0 pyglet pyopengl daemoniker
-pip install Pyro4 xmltodict typing lmdb
-
-# Install vllm and inference dependencies
-echo "📦 Installing vllm for inference..."
-pip install vllm --no-deps
-pip install ray sentencepiece==0.2.0 qwen-vl-utils
-
-# Install all missing VLLM dependencies
-echo "📦 Installing VLLM dependencies..."
-pip install cachetools blake3 cbor2 compressed-tensors==0.11.0 depyf==0.19.0 
-pip install "fastapi[standard]>=0.115.0" gguf>=0.13.0 lark==1.2.2 llguidance==0.7.30
-pip install lm-format-enforcer==0.11.3 mistral_common msgspec ninja numba==0.61.2
-pip install openai-harmony>=0.0.3 outlines_core==0.2.11 partial-json-parser
-pip install prometheus-fastapi-instrumentator>=7.0.0 py-cpuinfo pybase64 setproctitle
-pip install tiktoken>=0.6.0 watchfiles xformers==0.0.32.post1 xgrammar==0.1.23
-
-# Install correct PyTorch versions for VLLM compatibility
-echo "📦 Installing compatible PyTorch versions..."
-pip install torch==2.8.0 torchvision==0.23.0 torchaudio==2.8.0 --index-url https://download.pytorch.org/whl/cu128
-
-# Install tunneling tools (ngrok and localtunnel)
-echo "📦 Installing tunneling tools..."
-curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null
+# Step 5: Install tunneling tools for public access
+echo ""
+echo "📦 Step 5/5: Installing tunneling tools (ngrok)..."
+# Install ngrok
+curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null 2>&1
 echo "deb https://ngrok-agent.s3.amazonaws.com buster main" | tee /etc/apt/sources.list.d/ngrok.list
-apt update && apt install ngrok -y
-curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs
-npm install -g localtunnel
+apt-get update && apt-get install -y ngrok
 
-# Download the JarvisVLA model
-echo "📥 Downloading JarvisVLA model..."
-python download_model.py
+# Go back to parent directory
+cd ..
 
-# Verify installation
+# Verification
+echo ""
 echo "✅ Verifying installation..."
-java -version
-python -c "import jarvisvla; print('JarvisVLA imported successfully!')"
-python -c "import vllm; print('VLLM imported successfully!')"
-python -c "import minestudio; print('Minestudio imported successfully!')"
+echo "   Checking Java..."
+java -version 2>&1 | head -n 1
+
+echo "   Checking vLLM..."
+python -c "import vllm; print(f'✓ vLLM {vllm.__version__} imported successfully')" 2>&1
+
+echo "   Checking transformers..."
+python -c "import transformers; print(f'✓ transformers {transformers.__version__} imported successfully')" 2>&1
+
+echo "   Checking JarvisVLA..."
+python -c "import jarvisvla; print('✓ JarvisVLA imported successfully')" 2>&1 || {
+    echo "⚠️  Warning: JarvisVLA import failed, but vLLM can still serve the model"
+}
 
 echo ""
 echo "🎉 Installation completed successfully!"
 echo ""
-echo "📋 Available commands:"
-echo "  # Test minestudio simulator with Xvfb (headless):"
-echo "  python -m minestudio.simulator.entry"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📋 QUICK START - Serve JarvisVLA:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-echo "  # Test minestudio simulator with VirtualGL (GPU rendering):"
-echo "  MINESTUDIO_GPU_RENDER=1 python -m minestudio.simulator.entry"
+echo "1️⃣  Start the vLLM server:"
+echo "   ./start_vllm_server.sh"
 echo ""
-echo "  # Download the model first:"
-echo "  python download_model.py"
+echo "   Or manually:"
+echo "   CUDA_VISIBLE_DEVICES=0 vllm serve CraftJarvis/JarvisVLA-Qwen2-VL-7B \\"
+echo "       --port 8000 \\"
+echo "       --max-model-len 8192 \\"
+echo "       --trust-remote-code"
 echo ""
-echo "  # Serve model with vllm for inference (local path):"
-echo "  CUDA_VISIBLE_DEVICES=0 vllm serve ./models/JarvisVLA-Qwen2-VL-7B --port 8000 --max-model-len 8192"
+echo "2️⃣  Expose to public internet via ngrok:"
+echo "   # In a new terminal:"
+echo "   ngrok http 8000"
 echo ""
-echo "  # Or serve directly from Hugging Face (will auto-download):"
-echo "  CUDA_VISIBLE_DEVICES=0 vllm serve CraftJarvis/JarvisVLA-Qwen2-VL-7B --port 8000 --max-model-len 8192"
+echo "   Or use the helper script:"
+echo "   ./start_ngrok_tunnel.sh"
 echo ""
-echo "  # Create public HTTPS tunnel (choose one):"
-echo "  ./start_ngrok_tunnel.sh     # ngrok (requires domain setup)"
-echo "  ./start_localtunnel.sh      # LocalTunnel (easier setup)"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📚 Additional Info:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-echo "  # Or start everything with public access:"
-echo "  ./start_jarvis_public.sh"
+echo "• Model will auto-download from Hugging Face on first use"
+echo "• API docs available at: http://localhost:8000/docs"
+echo "• Compatible with OpenAI API format"
 echo ""
-echo "✨ JarvisVLA is ready for inference!"
+echo "✨ Ready to serve JarvisVLA!"
