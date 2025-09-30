@@ -1,0 +1,200 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[Server] Connecting bot to Minecraft server at 2.tcp.us-cal-1.ngrok.io:19335
+[MineflayerEnv] Bridge server started on port 3333
+[MineflayerEnv] Bot 'JarvisAI' connecting to 2.tcp.us-cal-1.ngrok.io:19335
+[Server] Initializing VLLM agent from CraftJarvis/JarvisVLA-Qwen2-VL-7B
+[04:49:45] tokenizer_type: qwen2_vl                        action_mapping.py:356
+[04:49:45] bases: [10, 3, 3, 3, 2, 2, 2, 2, 2, 2, 21, 21], action_mapping.py:357
+           camera_mu: 20, n_camera_bins: 21,                                    
+           camera_binsize: 1                                                    
+[Server] Starting AI agent loop
+[Server] Default instruction: Wait for chat instructions
+[Server] Listening for chat commands...
+[Server] Type messages in Minecraft chat to control JarvisAI
+[Server] Type 'reset' to clear AI state
+[Server] Players can join: 2.tcp.us-cal-1.ngrok.io:19335
+[Server] Press Ctrl+C to stop
+[]
+[Server] Step 0: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00000_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 1: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00001_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 2: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00002_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 3: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00003_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 4: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00004_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 5: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00005_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 6: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00006_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 7: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00007_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 8: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00008_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 9: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00009_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 10: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00010_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 11: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00011_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 12: {'type': 'compound', 'camera': 104, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00012_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 13: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00013_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 14: {'type': 'compound', 'camera': 264, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00014_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 15: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00015_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 16: {'type': 'compound', 'camera': 181, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00016_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 17: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00017_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 18: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00018_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 19: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00019_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 20: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00020_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 21: {'type': 'compound', 'camera': 157, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00021_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 22: {'type': 'compound', 'camera': 180, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00022_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 23: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00023_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 24: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00024_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 25: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00025_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 26: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00026_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 27: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00027_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 28: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00028_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 29: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00029_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 30: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00030_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 31: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00031_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 32: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00032_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 33: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00033_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 34: {'type': 'compound', 'camera': 363, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00034_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 35: {'type': 'compound', 'camera': 179, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00035_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 36: {'type': 'compound', 'camera': 295, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00036_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 37: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00037_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 38: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00038_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 39: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00039_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 40: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00040_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 41: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00041_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+[Server] Step 42: {'type': 'compound', 'camera': 220, 'buttons': {}}
+[Log] Saved to /workspace/Herobine/bridge/agent_logs/step_00042_input.jpg
+[MineflayerEnv] Step error: Object of type int64 is not JSON serializable
+[]
+
+[Server] Received shutdown signal
+[Server] Closing environment...
+[MineflayerEnv] Bridge server stopped
+[Server] Shutdown complete
+[Server] Closing environment...
+[MineflayerEnv] Bridge server stopped
+[Server] Shutdown complete

@@ -16,7 +16,7 @@ else
 fi
 
 # Set default values
-PORT=${PORT:-8000}
+PORT=${PORT:-3000}
 MAX_MODEL_LEN=${MAX_MODEL_LEN:-8192}
 GPU_ID=${CUDA_VISIBLE_DEVICES:-0}
 

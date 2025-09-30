@@ -1,0 +1,22 @@
+{
+  "name": "minecraft-ai-server",
+  "version": "1.0.0",
+  "description": "Minecraft AI server using Mineflayer and VLLM",
+  "main": "mineflayer_bridge.js",
+  "scripts": {
+    "start": "node mineflayer_bridge.js",
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "express": "^4.18.2",
+    "minecraft-protocol": "^1.54.0",
+    "mineflayer": "^4.33.0",
+    "prismarine-viewer": "^1.33.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "",
+  "license": "MIT"
+}
